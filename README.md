@@ -1,5 +1,5 @@
-PaySimple
-=========
+PaySimple C#
+============
 
 .Net bindings for the v4 PaySimple API
 
