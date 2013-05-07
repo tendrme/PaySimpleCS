@@ -1,0 +1,59 @@
+﻿<#@ template debug="true" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Net" #>
+<#@ assembly name="$(ProjectDir)..\PaySimple.Parser\bin\Debug\PaySimple.Parser.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="PaySimple.Parser" #>
+<#@ output extension=".cs" #>
+<#
+	var schema = SchemaReader.Current.Items;
+#>
+namespace PaySimple.Api.Types
+{
+<# foreach (var s in schema) { #>
+
+<# Description(s.Value); #>
+	public <#= s.Value.IsEnum ? "enum" : "class" #> <#= s.Key #><#= s.Value.IsEnum ? " : int" : "" #><#= InheritedClass(s.Value) #>
+	{
+<# foreach (var p in s.Value.Properties) { #>
+<# Description(p, true); #>
+<# if (s.Value.IsEnum) { #>
+		<#= p.Name #> = <#= p.Type #>,
+<# } else { #>
+		public <#= PropertyType(p) #> <#= p.Name #> { get; set; }
+<# }} #>
+	}
+<# } #>
+}
+<#+
+void Description(Schema schema, bool tabPlus = false)
+{
+	var tab = tabPlus ? "\t" : "";
+	if (schema.Description != null) {
+#>
+	<#= tab #>/// <summary>
+	<#= tab #>/// <#= schema.Description #>
+	<#= tab #>/// </summary>
+<#+ }
+}
+
+string InheritedClass(Schema schema)
+{
+	var inherits = default(string);
+	if (schema.InheritedType != null)
+		inherits = " : " + schema.InheritedType;
+	return inherits ?? "";
+}
+
+string PropertyType(Schema schema)
+{
+	string type;
+	if (schema.Type == "int" && schema.Name != "Id")
+		type = "int?";
+	else
+		type = schema.Type;
+	return type;
+}
+#>

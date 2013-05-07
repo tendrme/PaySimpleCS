@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaySimple.Api", "PaySimple.Api\PaySimple.Api.csproj", "{828D8F0B-52FD-4CBC-8D60-0E03E380ED8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaySimple.Parser", "PaySimple.Parser\PaySimple.Parser.csproj", "{468FD230-B263-42C4-AC07-A293040542DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{10DAE5C6-9E46-433F-BBFA-29F68BEC5A47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{828D8F0B-52FD-4CBC-8D60-0E03E380ED8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{828D8F0B-52FD-4CBC-8D60-0E03E380ED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{828D8F0B-52FD-4CBC-8D60-0E03E380ED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{828D8F0B-52FD-4CBC-8D60-0E03E380ED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{468FD230-B263-42C4-AC07-A293040542DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{468FD230-B263-42C4-AC07-A293040542DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{468FD230-B263-42C4-AC07-A293040542DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{468FD230-B263-42C4-AC07-A293040542DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DAE5C6-9E46-433F-BBFA-29F68BEC5A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DAE5C6-9E46-433F-BBFA-29F68BEC5A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DAE5C6-9E46-433F-BBFA-29F68BEC5A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DAE5C6-9E46-433F-BBFA-29F68BEC5A47}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

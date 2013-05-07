@@ -1,0 +1,70 @@
+﻿<#@ template debug="true" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)..\PaySimple.Parser\bin\Debug\PaySimple.Parser.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="PaySimple.Parser" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<#
+	var names = new List<string>();
+	var types = EndPointReader.Current.Items;
+#>
+using System;
+
+<# foreach (var pair in types.Where(x => !(x.Key == "New" || x.Key == "Lookup"))) { #>
+namespace PaySimple.Api.EndPoints.<#= pair.Key.Replace(" ", "") #>
+{
+<#     foreach (var ep in pair.Value.Select(x => new EndPoint(x))) { #>
+	public class <#= Name(ep, names) #> : <#= ep.SubmitsContent ? "Content" : "" #>EndPoint<Types.<#= ep.ReturnTypeName #>>
+	{
+		public override string RawUri
+		{
+			get { return "<#= ep.Descriptor.Uri #>"; }
+		}
+
+		public override string Method
+		{
+			get { return "<#= ep.Descriptor.Method #>"; }
+		}
+
+<#         foreach (var p in ep.Parameters) { #>
+		public <#= ParamType(p) #> <#= UppercaseFirst(p.Name) #>
+		{
+			get { return GetValue<<#= ParamType(p) #>>("<#= p.Name #>"); }
+			set { SetValue("<#= p.Name #>", value); }
+		}
+<#         } #>
+	}
+
+<#   } #>
+}
+
+<# } #>
+
+<#+
+string Name(EndPoint endPoint, List<string> names)
+{
+	var name = endPoint.FriendlyName;
+	if (names.Contains(name))
+		name += "2";
+	names.Add(name);
+	return name;
+}
+
+string ParamType(EndPoint.Param pram)
+{
+	string ns;
+	if (pram.Type != "string")
+		ns = "Types.";
+	else
+		ns = "";
+	return ns + pram.Type;
+}
+
+string UppercaseFirst(string s)
+{
+    var chars = s.ToCharArray();
+    chars[0] = char.ToUpper(chars[0]);
+    return new string(chars);
+}
+#>
