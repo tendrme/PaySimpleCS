@@ -22,9 +22,9 @@ var newPayment = new Eps.Payment.NewPayment
 };
 
 // Fire it off (see App.config for setting UserName and Secret).
-var req = new Ps.Request();
+var request = new Ps.Request();
 // All the metadata and appropriate goodness is returned in the response object.
-var response = req.Execute(newPayment);
+var response = request.Execute(newPayment);
 ```
 
 TODO: note limitations + work-arounds.
