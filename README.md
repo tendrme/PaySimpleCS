@@ -8,6 +8,7 @@ This is a work in progress.  Almost the entire v4 API is bound with only the "Ne
 __Quick Start__
 ```C#
 using Ps = PaySimple.Api;
+using Types = PaySimple.Api.Types;
 using Eps = PaySimple.Api.EndPoints;
 
 // Start your request with newing up the appropriate endpoint.
@@ -23,8 +24,22 @@ var newPayment = new Eps.Payment.NewPayment
 
 // Fire it off (see App.config for setting UserName and Secret).
 var request = new Ps.Request();
+
 // All the metadata and appropriate goodness is returned in the response object.
 var response = request.Execute(newPayment);
+
+// The API JSON objects are strongly typed.
+// Creating a new credit card, for example, would look like this:
+var newCard = new Eps.Account.NewAccountCreditcard
+{
+  Content = new Types.CreditCardAccount
+  {
+    CreditCardNumber = "012345678901234",
+    ExpirationDate = "12/2015",
+    Issuer = Types.Issuer.Visa,
+    CustomerId = 209335,
+  }
+};
 ```
 
 TODO: note limitations + work-arounds.
