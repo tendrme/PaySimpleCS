@@ -94,12 +94,20 @@ namespace PaySimple.Api
                     throw;
             }
 
+            var status = response.StatusCode;
             using (response)
             using (var reader = new StreamReader(response.GetResponseStream()))
                 json = reader.ReadToEnd();
 
-            return SimpleJson.DeserializeObject<Types.ApiResponse<T>>(
-                json, new EnumSupportedStrategy());
+            Types.ApiResponse<T> result;
+            if (!string.IsNullOrEmpty(json))
+                result = SimpleJson.DeserializeObject<Types.ApiResponse<T>>(
+                    json, new EnumSupportedStrategy());
+            else
+                result = new Types.ApiResponse<T>();
+            result.Status = status;
+
+            return result;
         }
 
         void Validate()

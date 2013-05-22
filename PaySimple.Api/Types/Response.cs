@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace PaySimple.Api.Types
 {
@@ -33,5 +34,6 @@ namespace PaySimple.Api.Types
     {
         public Meta Meta { get; set; }
         public T Response { get; set; }
+        public HttpStatusCode Status { get; set; }
     }
 }
