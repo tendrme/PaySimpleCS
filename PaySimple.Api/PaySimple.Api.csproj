@@ -40,9 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiResponseEx.cs" />
     <Compile Include="ContentEndPoint.cs" />
     <Compile Include="EndPoint.cs" />
     <Compile Include="EnumSupportedStrategy.cs" />
+    <Compile Include="PaySimpleException.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="SimpleJson.cs" />
     <Compile Include="Templates\EndPoints.cs">
