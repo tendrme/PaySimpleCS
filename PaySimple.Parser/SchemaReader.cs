@@ -39,6 +39,8 @@ namespace PaySimple.Parser
             }
         }
 
+        TypeFixUps _fixUps = new TypeFixUps();
+
         public SchemaReader() : base("Schemas", "#body ul a")
         {
         }
@@ -104,6 +106,7 @@ namespace PaySimple.Parser
                             Properties = new List<Schema>()
                         };
                         Items.Add(apiType, schema);
+                        _fixUps.FixUp(schema);
 
                         if (isArray)
                             properties = Parse.ToDict(properties["items"]);

@@ -1,4 +1,4 @@
-﻿namespace PaySimple.Api.Types
+﻿namespace PaySimple.Api.Types 
 {
 
 	public class Customer
@@ -64,6 +64,7 @@
 
 	public class CreditCardAccount
 	{
+		public string BillingZipCode { get; set; }
 		public string CreditCardNumber { get; set; }
 		public int? CustomerId { get; set; }
 		public string ExpirationDate { get; set; }
