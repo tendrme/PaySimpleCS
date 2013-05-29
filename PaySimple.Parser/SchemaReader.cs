@@ -106,7 +106,6 @@ namespace PaySimple.Parser
                             Properties = new List<Schema>()
                         };
                         Items.Add(apiType, schema);
-                        _fixUps.FixUp(schema);
 
                         if (isArray)
                             properties = Parse.ToDict(properties["items"]);
@@ -159,6 +158,8 @@ namespace PaySimple.Parser
 
                     if (parent != null)
                         parent.Properties.Add(schema);
+
+                    _fixUps.FixUp(schema);
                 }
                 else
                 {

@@ -7,9 +7,9 @@ namespace PaySimple.Api
 {
     public class PaySimpleException<T> : Exception where T : class
     {
-        readonly ApiResponse<T> _response;
+        readonly IApiResponse<T> _response;
 
-        public PaySimpleException(ApiResponse<T> response)
+        public PaySimpleException(IApiResponse<T> response)
         {
             _response = response;
         }

@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Configuration;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 
 namespace PaySimple.Api
@@ -48,7 +49,7 @@ namespace PaySimple.Api
             hmac = Convert.ToBase64String(data);
         }
 
-        public Types.ApiResponse<T> Execute<T>(
+        public Types.IApiResponse<T> Execute<T>(
             EndPoint<T> endPoint, Func<Uri, Uri> prepareUri = null)
             where T : class
         {
@@ -99,10 +100,18 @@ namespace PaySimple.Api
             using (var reader = new StreamReader(response.GetResponseStream()))
                 json = reader.ReadToEnd();
 
-            Types.ApiResponse<T> result;
+            Types.IApiResponse<T> result;
             if (!string.IsNullOrEmpty(json))
-                result = SimpleJson.DeserializeObject<Types.ApiResponse<T>>(
-                    json, new EnumSupportedStrategy());
+            {
+                var enumStrat = new EnumSupportedStrategy();
+                var returnType = GetResponseType(endPoint);
+                if (returnType != null)
+                    result = (Types.IApiResponse<T>)SimpleJson.DeserializeObject(
+                        json, returnType, enumStrat);
+                else
+                    result = SimpleJson.DeserializeObject<Types.ApiResponse<T>>(
+                        json, enumStrat);
+            }
             else
                 result = new Types.ApiResponse<T>();
             result.Status = status;
@@ -133,6 +142,29 @@ namespace PaySimple.Api
                 response.StatusCode != HttpStatusCode.BadRequest)
                 response = null;
             return response;
+        }
+
+        static Dictionary<Type, Type> _typeMap = new Dictionary<Type, Type>
+        {
+            {
+                typeof(EndPoints.Payment.NewPayment),
+                typeof(Types.ApiResponse<Types.PaymentResponse>)
+            }
+        };
+
+        /// <summary>
+        /// Some endpoints have a return type that is a subclass of its generic
+        /// parameter type.  This returns the proper subclass.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="endPoint"></param>
+        /// <returns></returns>
+        static Type GetResponseType<T>(EndPoint<T> endPoint)
+            where T : class
+        {
+            Type type;
+            _typeMap.TryGetValue(endPoint.GetType(), out type);
+            return type;
         }
     }
 }

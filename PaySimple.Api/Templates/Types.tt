@@ -10,7 +10,7 @@
 <#
 	var schema = SchemaReader.Current.Items;
 #>
-namespace PaySimple.Api.Types
+namespace PaySimple.Api.Types 
 {
 <# foreach (var s in schema) { #>
 

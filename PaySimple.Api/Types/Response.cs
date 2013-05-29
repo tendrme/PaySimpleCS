@@ -30,7 +30,14 @@ namespace PaySimple.Api.Types
         public PagingDetails PagingDetails { get; set; }
     }
 
-    public class ApiResponse<T> where T : class
+    public interface IApiResponse<out T> where T : class
+    {
+        Meta Meta { get; set; }
+        T Response { get; }
+        HttpStatusCode Status { get; set; }
+    }
+
+    public class ApiResponse<T> : IApiResponse<T> where T : class
     {
         public Meta Meta { get; set; }
         public T Response { get; set; }

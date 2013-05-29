@@ -64,7 +64,6 @@
 
 	public class CreditCardAccount
 	{
-		public string BillingZipCode { get; set; }
 		public string CreditCardNumber { get; set; }
 		public int? CustomerId { get; set; }
 		public string ExpirationDate { get; set; }
@@ -76,6 +75,7 @@
 		public Issuer Issuer { get; set; }
 		public string CreatedOn { get; set; }
 		public string LastModified { get; set; }
+		public string BillingZipCode { get; set; }
 	}
 
 	/// <summary>
@@ -112,12 +112,12 @@
 	public class PaymentResponse : Payment
 	{
 		public int? CustomerId { get; set; }
-		public int? CustomerFirstName { get; set; }
-		public int? CustomerLastName { get; set; }
-		public int? CustomerCompany { get; set; }
+		public string CustomerFirstName { get; set; }
+		public string CustomerLastName { get; set; }
+		public string CustomerCompany { get; set; }
 		public int? ReferenceId { get; set; }
-		public decimal Latitude { get; set; }
-		public decimal Longitude { get; set; }
+		public decimal? Latitude { get; set; }
+		public decimal? Longitude { get; set; }
 		/// <summary>
 		/// The status of the payment and is set by system. Any data provided will be disregarded.
 		/// </summary>

@@ -7,7 +7,7 @@ namespace PaySimple.Api
 {
     public static class ApiResponseEx
     {
-        public static void ThrowIfError<T>(this ApiResponse<T> response)
+        public static void ThrowIfError<T>(this IApiResponse<T> response)
             where T : class
         {
             if (response.Meta.Errors != null)
