@@ -44,4 +44,3 @@ var newCard = new Eps.Account.NewAccountCreditcard
 
 TODO: note limitations + work-arounds.
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/tendrme/PaySimpleCS/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
